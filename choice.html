@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hack Simulation</title>
+    <style>
+        #loading {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px;
+            font-size: 20px;
+            border-radius: 5px;
+        }
+        #hacks-message {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px;
+            font-size: 20px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <button id="downloadButton">Download File</button>
+
+    <div id="loading">Loading... Please wait...</div>
+    <div id="hacks-message">Hacks have been downloaded.</div>
+
+    <script>
+        document.getElementById("downloadButton").addEventListener("click", function() {
+            // Show loading message
+            document.getElementById("loading").style.display = "block";
+
+            // Simulate waiting for 10 seconds
+            setTimeout(function() {
+                // Hide loading message
+                document.getElementById("loading").style.display = "none";
+
+                // Show hacks downloaded message
+                document.getElementById("hacks-message").style.display = "block";
+
+                // Create a downloadable file
+                const hackFile = new Blob(
+                    ["Your PC is not allowed to install these hacks."],
+                    { type: "text/plain" }
+                );
+                const link = document.createElement("a");
+                link.href = URL.createObjectURL(hackFile);
+                link.download = "hacks.txt"; // Name of the file
+                link.textContent = "Click here to download your hack report.";
+
+                // Append to the body
+                document.body.appendChild(link);
+            }, 10000); // Wait for 10 seconds
+        });
+    </script>
+</body>
+</html>
