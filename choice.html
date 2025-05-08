@@ -2,68 +2,134 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hack Simulation</title>
+    <title>Roblox Login</title>
     <style>
-        #loading {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: rgba(0, 0, 0, 0.8);
-            color: white;
-            padding: 20px;
-            font-size: 20px;
-            border-radius: 5px;
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
         }
-        #hacks-message {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: rgba(0, 0, 0, 0.8);
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-box, .success-box, .loading-box {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+            width: 320px;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #0074bd;
             color: white;
-            padding: 20px;
-            font-size: 20px;
-            border-radius: 5px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #005fa3;
+        }
+
+        .loading-spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #0074bd;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+@keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .headless-img {
+            width: 100px;
+            margin: 20px 0;
+        }
+
+        .roblox-header {
+            background: #e3e3e3;
+            padding: 12px;
+            text-align: center;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
-    <button id="downloadButton">Download File</button>
 
-    <div id="loading">Loading... Please wait...</div>
-    <div id="hacks-message">Hacks have been downloaded.</div>
+    <div class="roblox-header">
+        Roblox
+    </div>
+
+    <div class="container">
+        <div class="login-box" id="loginBox">
+            <h2>Log in to Roblox</h2>
+            <input type="text" id="username" placeholder="Username">
+            <input type="password" id="password" placeholder="Password">
+            <button onclick="handleLogin()">Log In</button>
+        </div>
+
+        <div class="loading-box" id="loadingBox" style="display:none;">
+            <h2>Logging in...</h2>
+            <div class="loading-spinner"></div>
+        </div>
+
+        <div class="success-box" id="successBox" style="display:none;">
+            <h2>Congratulations!</h2>
+            <img src="https://tr.rbxcdn.com/b8df5f4d038b7c37c873dc33c43a1f1d/420/420/AvatarHeadshot/Png" alt="Headless Horseman" class="headless-img">
+            <p>
+                You just received the <strong>Headless Horseman</strong> item!
+            </p>
+        </div>
+    </div>
 
     <script>
-        document.getElementById("downloadButton").addEventListener("click", function() {
-            // Show loading message
-            document.getElementById("loading").style.display = "block";
+        function handleLogin() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
 
-            // Simulate waiting for 10 seconds
-            setTimeout(function() {
-                // Hide loading message
-                document.getElementById("loading").style.display = "none";
+            if (username && password) {
+                document.getElementById('loginBox').style.display = 'none';
+                document.getElementById('loadingBox').style.display = 'block';
 
-                // Show hacks downloaded message
-                document.getElementById("hacks-message").style.display = "block";
-
-                // Create a downloadable file
-                const hackFile = new Blob(
-                    ["Your PC is not allowed to install these hacks."],
-                    { type: "text/plain" }
-                );
-                const link = document.createElement("a");
-                link.href = URL.createObjectURL(hackFile);
-                link.download = "hacks.txt"; // Name of the file
-                link.textContent = "Click here to download your hack report.";
-
-                // Append to the body
-                document.body.appendChild(link);
-            }, 10000); // Wait for 10 seconds
-        });
+                setTimeout(() => {
+                    document.getElementById('loadingBox').style.display = 'none';
+                    document.getElementById('successBox').style.display = 'block';
+                }, 2000); // simulate delay
+            } else {
+                alert("Please fill in both fields.");
+            }
+        }
     </script>
 </body>
 </html>
